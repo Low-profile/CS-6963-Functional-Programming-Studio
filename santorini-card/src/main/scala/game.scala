@@ -112,7 +112,7 @@ object game extends App {
           val tokens = initPosition.filterNot(game.enemy.tokens.contains(_)).take(2)
           val player = Player(new Tokens(tokens(0),tokens(1)), game.player.card)
           val enemy = game.enemy
-          val new_board = Board(turn, enemy, player, Map.empty[Pos, Int])
+          val new_board = Board(turn, enemy, player, Map.empty[Pos, Int],true,None)
           parser.boardToJson(new_board)
         }
         else {
@@ -120,17 +120,35 @@ object game extends App {
           val player = Player(new Tokens(Pos(3, 2), Pos(3, 3)), game.player.card)
           val enemy = game.enemy
 
-          val new_board = Board(turn, enemy, player, Map.empty[Pos, Int])
+          val new_board = Board(turn, enemy, player, Map.empty[Pos, Int],true,None)
           parser.boardToJson(new_board)
         }
       } else {
         game.player.card match {
-          //todo: now never build first
-          //        case "Prometheus" => {
-          //
-          //        }
+//          //swap cards
+//          case "Apollo" => {
+//          }
+//          //double move
+//          case "Artemis" => {
+//          }
+//          // push a token back
+//          case "Minotaur" => {
+//          }
+//          // can build before moving, but then can only move to lower position
+//          case "Prometheus" => {
+//          }
+//          // buid to 4
+//          case "Atlas" => {
+//          }
+//          // build at 2 different positions
+//          case "Demeter" => {
+//          }
+//          // build same pos twice, cannot build to level 4
+//          case "Hephastus" => {
+//          }
           case _ => {
-            val new_board = game.moveThenBuild()
+            //val new_board = game.moveThenBuild()
+            val new_board = MCTS.findNextMove(game,1000)
             parser.boardToJson(new_board)
           }
         }

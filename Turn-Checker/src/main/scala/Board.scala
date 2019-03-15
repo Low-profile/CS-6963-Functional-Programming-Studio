@@ -22,6 +22,9 @@ case class Board(turn: Int, player: Player, enemy: Player, spaces: Map[Pos, Int]
     spaces.get(tokPos).get == 4
   }
 
+
+
+
   def assertNewTokenPos(
                          t: Pos,
                          predicates: List[(Pos) => Boolean]

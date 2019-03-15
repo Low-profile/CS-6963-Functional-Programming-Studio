@@ -134,12 +134,12 @@ class Parser {
               case Seq(JsString(card)) => Player(null,card)
               case _ => throw new DeserializationException("Player expected")
             }
-            Board(0, Player(null, playerCard), enemyCard, Map.empty[Pos, Int])
+            Board(0, Player(null, playerCard), enemyCard, Map.empty[Pos, Int], false, None)
           }
           case other => {
             other.asJsObject.getFields("turn", "players", "spaces") match {
               case Seq(JsNumber(turn), JsArray(Vector(player, enemy)), spaces) =>
-                new Board(turn.toInt, player.convertTo[Player], enemy.convertTo[Player], spaces.convertTo[Space])
+                new Board(turn.toInt, player.convertTo[Player], enemy.convertTo[Player], spaces.convertTo[Space], false,None)
               case _ => throw new DeserializationException("Player expected")
             }
           }

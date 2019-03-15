@@ -111,7 +111,6 @@ object Main extends App{
       card match {
         case "Apollo" | "Minotaur" => inMoveRange && !to.outOfBound() && !before.isTowerBuilt(to) && towerLowEnough
         case _ => inMoveRange && !to.outOfBound() && !before.isTowerBuilt(to) && towerLowEnough && notOccupied
-
       }
 
     }
